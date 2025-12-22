@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Student;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,10 +17,21 @@ class StudentLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // (!auth()->check() || !auth()->user()->is_student)
+       
         if (!auth()->check()) {
-            return redirect()->route('student.login');
-        }   
+            
+            return redirect()->route('student.login')->with('failure', 'Error when trying to login!');
+        } else {
+           
+            $student = Student::where('user_id', auth()->user()->id)->count();
+            if ($student == 0) 
+            {
+                Auth::logout();
+                return redirect()->route('student.login')->with('failure', 'Error when trying to login!');
+            }
+        }
+
         return $next($request);
+        
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-6">Exam Questions</h1>
+    <h1 class="text-2xl font-bold mb-6">Exam Questions  | {{ $title }}</h1>
     <form action="{{ route('student.exam.submit', ['id' => $examId]) }}" method="POST">
         @csrf
         <div class="space-y-4">
