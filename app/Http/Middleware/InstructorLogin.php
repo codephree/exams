@@ -2,13 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Student;
 use Closure;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class StudentLogin
+class InstructorLogin
 {
     /**
      * Handle an incoming request.
@@ -17,13 +15,10 @@ class StudentLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-       
-         if (!auth()->guard('students')->check()) {
-            return redirect()->route('student.login');
-         }
-        // return $next($request);
 
+        if (!auth()->guard('instructors')->check()) {
+            return redirect()->route('instructor.login');
+        }
         return $next($request);
-        
     }
 }

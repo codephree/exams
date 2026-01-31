@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Students;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller as BaseController;
 
-class StudentAuthController extends BaseController
+class AuthController extends BaseController
 {
     public function __construct()
     {
@@ -27,7 +27,7 @@ class StudentAuthController extends BaseController
 
         $remember = $request->boolean('remember');
 
-        if (Auth::attempt($credentials, $remember)) {
+        if (Auth::guard('students')->attempt($credentials, $remember)) {
             $request->session()->regenerate();
             return redirect()->intended(route('student.dashboard'));
         }
@@ -39,9 +39,9 @@ class StudentAuthController extends BaseController
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('students')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect(route('student.login'))->with('success', 'You have been logged out.');
     }
 }

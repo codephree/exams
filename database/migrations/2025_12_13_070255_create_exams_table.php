@@ -20,7 +20,8 @@ return new class extends Migration
             $table->dateTime('end_time');
             $table->integer('duration_minutes');
             $table->integer('total_marks');
-            $table->string('created_by'); // could be admin or instructor ID
+            // $table->string('created_by'); // could be admin or instructor ID
+            $table->foreignId('instructor_id')->constrained('ex_instructor_users')->onDelete('cascade');
             $table->string('status')->default('scheduled'); // scheduled, ongoing, completed
             $table->timestamps();
         });

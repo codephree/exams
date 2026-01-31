@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Students;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Exam;
 use App\Models\ExamQuestion;
@@ -9,7 +11,7 @@ use App\Models\StudentExamAttempt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class Student extends Controller
+class StudentController extends Controller
 {
     //
     public function dashboard()
@@ -32,7 +34,6 @@ class Student extends Controller
     {
               $questions = ExamQuestion::where('exam_id', $id)
                                           ->inRandomOrder()->limit(20)->get();
-
                 // create a new StudentExamAttempt record
                 StudentExamAttempt::create([
                     'student_id' => Auth::id(),
@@ -41,7 +42,7 @@ class Student extends Controller
                     'status' => 'in_progress'
                 ]);
 
-                return view('student.exam', ['questions' => $questions, 'examId' => $id , 'title' => Exam::where('id',$id)->pluck('title')->first()]);
+                return view('student.exam', ['questions' => $questions, 'examId' => $id , 'duration' => Exam::where('id',$id)->pluck('duration_minutes')->first(),  'title' => Exam::where('id',$id)->pluck('title')->first()]);
     }
 
     public function submitExam(Request $request, $id)

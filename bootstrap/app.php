@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Middleware\StudentLogin;
+// use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\InstructorLogin;
 use Illuminate\Foundation\Application;
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -14,7 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         //
         $middleware->alias([
-            'student.auth' => StudentLogin::class,
+            // 'student.auth' => StudentLogin::class,
+            'student' => StudentLogin::class,
+            'instructor' => InstructorLogin::class,
+            'auth' => Authenticate::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

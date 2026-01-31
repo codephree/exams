@@ -40,6 +40,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'students' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
+        'instructors' => [
+            'driver' => 'session',
+            'provider' => 'instructors',
+        ],
+        'admins' => [
+            'driver' => 'session',
+            'provider' => 'admins',      
+        ],
     ],
 
     /*
@@ -64,11 +76,18 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_STUDENT_MODEL', App\Models\StudentUser::class),
+        ],
+        'instructors' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_INSTRUCTOR_MODEL', App\Models\InstructorUser::class),
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_ADMIN_MODEL', App\Models\User::class),
+        ],
     ],
 
     /*

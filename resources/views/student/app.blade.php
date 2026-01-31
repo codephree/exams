@@ -12,6 +12,35 @@
         <header class="bg-blue-600 text-white py-4 shadow-md">
             <div class="container mx-auto px-4 flex justify-between items-center">
                 <h1 class="text-2xl font-bold">Student Dashboard</h1>
+                 @isset($duration)
+                    
+                    <span id="countdown" class="text-white text-sm"></span>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const duration = {{ $duration }};
+                            let timeRemaining = duration * 60; // Convert minutes to seconds
+
+                            const countdownElement = document.getElementById('countdown');
+
+                            function updateCountdown() {
+                                const minutes = Math.floor(timeRemaining / 60);
+                                const seconds = timeRemaining % 60;
+                                countdownElement.textContent = `Time Remaining: ${minutes}m ${seconds}s`;
+
+                                if (timeRemaining > 0) {
+                                    timeRemaining--;
+                                } else {
+                                    clearInterval(countdownInterval);
+                                    countdownElement.textContent = "Time's up!";
+                                    document.getElementById('examForm').submit();
+                                }
+                            }
+
+                            const countdownInterval = setInterval(updateCountdown, 1000);
+                            updateCountdown();
+                        });
+                    </script>
+                @endisset
                 <form action="{{ route('student.logout') }}" method="post" class="logout" id="logout">
                     @csrf
                      <a  onclick="document.getElementById('logout').submit(); return false;" 
@@ -29,5 +58,7 @@
             </div>
         </footer>
     </div>
+    @section('scripts')
+    
 </body>
 </html>

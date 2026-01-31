@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Login</title>
+    <title>Instructor Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
  </head>
 <body class="bg-gray-100 h-screen flex items-center justify-center">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Student Login</h2>
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Instructor Login</h2>
 
         @if (session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -29,7 +29,7 @@
                 </span>
             </div>
         @endif
-        <form action="{{ route('student.login') }}" method="POST" class="space-y-4">
+        <form action="{{ route('instructor.login') }}" method="POST" class="space-y-4">
             @csrf
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>

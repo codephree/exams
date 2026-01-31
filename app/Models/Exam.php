@@ -16,7 +16,7 @@ class Exam extends Model
         'end_time',
         'duration_minutes',
         'total_marks',
-        'created_by',
+        'instructor_id',
         'status',
     ];
 
